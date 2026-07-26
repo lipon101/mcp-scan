@@ -1,0 +1,38 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "mcp-scan"
+version = "0.3.0"
+description = "Lighthouse/ESLint for MCP servers — grade any MCP server A–F, probe it live, and rank the ecosystem on a leaderboard."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "James D. Owens" }]
+keywords = ["mcp", "model-context-protocol", "lint", "lighthouse", "agents", "quality", "security", "github-actions", "leaderboard"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Topic :: Software Development :: Quality Assurance",
+]
+dependencies = ["typer>=0.12", "rich>=13.0"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+live = ["mcp>=1.0"]
+web = ["fastapi>=0.110", "uvicorn[standard]>=0.29"]
+
+[project.scripts]
+mcp-scan = "mcp_scan.cli:entrypoint"
+mcp-scan-leaderboard = "mcp_scan.leaderboard:entrypoint"
+
+[project.urls]
+Homepage = "https://github.com/lipon101/mcp-scan"
+Issues = "https://github.com/lipon101/mcp-scan/issues"
+
+[tool.hatch.build.targets.wheel]
+packages = ["mcp_scan"]

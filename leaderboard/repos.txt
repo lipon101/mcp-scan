@@ -1,0 +1,9 @@
+# mcp-scan leaderboard targets — one repo per line (# comments allowed).
+# These are real, popular standalone MCP servers; add your own / your favorites.
+https://github.com/microsoft/playwright-mcp
+https://github.com/github/github-mcp-server
+https://github.com/upstash/context7-mcp
+https://github.com/sooperset/mcp-atlassian
+https://github.com/modelcontextprotocol/inspector
+# Note: modelcontextprotocol/servers is a monorepo — list individual src/* subdirs instead,
+# e.g. clone it and scan servers/src/filesystem, servers/src/github, etc.

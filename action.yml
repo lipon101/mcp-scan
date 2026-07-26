@@ -1,0 +1,73 @@
+name: 'mcp-scan'
+description: 'Grade an MCP server A–F on security, liveness, protocol, usability, and docs — and optionally fail the build below a threshold.'
+branding:
+  icon: 'shield'
+  color: 'green'
+
+inputs:
+  target:
+    description: 'Path to scan (relative to the repository root).'
+    required: false
+    default: '.'
+  fail-under:
+    description: 'Fail the job below this grade (A/B/C/D/F). Leave empty to never fail.'
+    required: false
+    default: ''
+  report:
+    description: 'Write a Markdown report card and upload it (with the JSON) as a workflow artifact.'
+    required: false
+    default: 'true'
+  version:
+    description: 'mcp-scan version to install (default: latest).'
+    required: false
+    default: 'latest'
+
+outputs:
+  grade:
+    description: 'The A–F grade.'
+    value: ${{ steps.scan.outputs.grade }}
+  score:
+    description: 'The numeric score (0–100).'
+    value: ${{ steps.scan.outputs.score }}
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Install mcp-scan
+      shell: bash
+      run: |
+        if [ "${{ inputs.version }}" = "latest" ]; then VER="mcp-scan"; else VER="mcp-scan==${{ inputs.version }}"; fi
+        if command -v pipx >/dev/null 2>&1; then
+          pipx install "$VER"
+        else
+          python3 -m pip install --user "$VER"
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+        fi
+
+    - name: Run mcp-scan
+      id: scan
+      shell: bash
+      run: |
+        ARGS="${{ inputs.target }} --json mcp-scan.json"
+        if [ "${{ inputs.report }}" = "true" ]; then ARGS="$ARGS --report -o mcp-scan-report.md"; fi
+        if [ -n "${{ inputs.fail-under }}" ]; then ARGS="$ARGS --fail-under ${{ inputs.fail-under }}"; fi
+        set +e
+        mcp-scan $ARGS
+        EXIT=$?
+        set -e
+        # The JSON is written before any fail-under exit, so outputs are available even on failure.
+        if [ -f mcp-scan.json ]; then
+          echo "grade=$(python3 -c 'import json;print(json.load(open("mcp-scan.json")).get("grade",""))')" >> "$GITHUB_OUTPUT"
+          echo "score=$(python3 -c 'import json;print(json.load(open("mcp-scan.json")).get("overall",""))')" >> "$GITHUB_OUTPUT"
+        fi
+        exit $EXIT
+
+    - name: Upload report card
+      if: ${{ always() && inputs.report == 'true' }}
+      uses: actions/upload-artifact@v4
+      with:
+        name: mcp-scan-report
+        path: |
+          mcp-scan-report.md
+          mcp-scan.json
+        if-no-files-found: ignore
