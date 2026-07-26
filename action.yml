@@ -1,5 +1,5 @@
 name: 'mcp-grade'
-description: 'Grade an MCP server A–F on security, liveness, protocol, usability, and docs — and optionally fail the build below a threshold.'
+description: 'Grade any MCP server A–F on security, liveness, protocol, usability, and docs.'
 branding:
   icon: 'shield'
   color: 'green'
