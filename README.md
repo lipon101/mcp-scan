@@ -8,7 +8,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![mcp-grade grade](https://img.shields.io/badge/mcp--grade-A_96-brightgreen)](https://github.com/lipon101/mcp-grade)
 
-![mcp-grade demo](assets/demo.png)
+![mcp-grade demo](https://raw.githubusercontent.com/lipon101/mcp-grade/main/assets/demo.png)
 
 </div>
 
