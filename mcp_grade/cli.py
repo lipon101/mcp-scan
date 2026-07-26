@@ -1,4 +1,4 @@
-"""Command-line interface for mcp-scan."""
+"""Command-line interface for mcp-grade."""
 from __future__ import annotations
 
 import json
@@ -15,7 +15,7 @@ from .scanner import scan
 
 app = typer.Typer(
     add_completion=False,
-    help="mcp-scan — Lighthouse/ESLint for MCP servers. Grade any MCP server A–F from one command.",
+    help="mcp-grade — Lighthouse/ESLint for MCP servers. Grade any MCP server A–F from one command.",
 )
 console = Console()
 
@@ -25,11 +25,11 @@ _GRADE_ORDER = ["F", "D", "C", "B", "A"]
 @app.command()
 def main(
     target: str = typer.Argument(..., help="Path to an MCP server repo, or a git URL to clone & scan."),
-    report: bool = typer.Option(False, "--report", help="Write a Markdown report card (mcp-scan-report.md)."),
+    report: bool = typer.Option(False, "--report", help="Write a Markdown report card (mcp-grade-report.md)."),
     badge: bool = typer.Option(False, "--badge", help="Print a shields.io badge for the grade."),
     output: Optional[Path] = typer.Option(None, "--output", "-o", help="Write the Markdown report to this path."),
     json_out: Optional[Path] = typer.Option(None, "--json", help="Write a machine-readable JSON summary to this path."),
-    live: bool = typer.Option(False, "--live", help="Actually launch the server and verify the MCP handshake (needs `pip install mcp-scan[live]`)."),
+    live: bool = typer.Option(False, "--live", help="Actually launch the server and verify the MCP handshake (needs `pip install mcp-grade[live]`)."),
     command: Optional[str] = typer.Option(None, "--command", help="Command to launch the server for --live (default: auto-detect server.py)."),
     fail_under: Optional[str] = typer.Option(None, "--fail-under", help="Exit non-zero below this grade (A/B/C/D). Great for CI."),
 ) -> None:
@@ -44,7 +44,7 @@ def main(
         console.print(report_mod.badge_markdown(rep))
 
     if report or output:
-        dest = output or Path("mcp-scan-report.md")
+        dest = output or Path("mcp-grade-report.md")
         dest.write_text(report_mod.to_markdown(rep), encoding="utf-8")
         console.print(f"[dim]Markdown report written to {dest}[/dim]")
 
@@ -65,7 +65,7 @@ def main(
 
 
 def _clone(url: str) -> str:
-    dest = tempfile.mkdtemp(prefix="mcp-scan-")
+    dest = tempfile.mkdtemp(prefix="mcp-grade-")
     console.print(f"[dim]Cloning {url} …[/dim]")
     subprocess.run(["git", "clone", "--depth", "1", url, dest], check=True)
     return dest

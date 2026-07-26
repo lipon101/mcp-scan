@@ -1,7 +1,7 @@
 """Live protocol probing — actually launch an MCP server and verify the handshake.
 
-Optional and OFF by default so mcp-scan stays fast and works offline. Enable with
-`mcp-scan <target> --live`. Requires the MCP SDK: `pip install mcp-scan[live]`.
+Optional and OFF by default so mcp-grade stays fast and works offline. Enable with
+`mcp-grade <target> --live`. Requires the MCP SDK: `pip install mcp-grade[live]`.
 
 A server that *runs and answers* is worth more than one that merely looks correct,
 so live evidence is folded into the Protocol category when enabled.
@@ -58,7 +58,7 @@ def probe(path: Path, command: Optional[str] = None, timeout: float = DEFAULT_TI
     except Exception:
         out.append(CheckResult(
             "protocol.live_sdk", CATEGORY, Status.WARN, 0.5, 1,
-            "MCP SDK not installed — `pip install mcp-scan[live]` to enable live probing"))
+            "MCP SDK not installed — `pip install mcp-grade[live]` to enable live probing"))
         return out
 
     t0 = time.time()

@@ -1,6 +1,6 @@
-# mcp-scan report card — Grade F (46/100)
+# mcp-grade report card — Grade F (46/100)
 
-**Target:** `/home/user/mcp-scan/examples/bad_server`  
+**Target:** `/home/user/mcp-grade/examples/bad_server`  
 **Generated:** 2026-07-26 04:03 UTC
 
 | Category | Score | Weight |
@@ -46,6 +46,6 @@
 - ⚠️ **has_contributing** — No contributing guide
 
 ---
-_Scanned with [mcp-scan](https://github.com/lipon101/mcp-scan) — Lighthouse for MCP servers._
+_Scanned with [mcp-grade](https://github.com/lipon101/mcp-grade) — Lighthouse for MCP servers._
 
-![mcp-scan grade](https://img.shields.io/badge/mcp--scan-F_46-red)
+![mcp-grade grade](https://img.shields.io/badge/mcp--grade-F_46-red)

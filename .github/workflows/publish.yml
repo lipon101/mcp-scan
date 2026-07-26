@@ -1,10 +1,10 @@
 name: Publish to PyPI
 
-# Builds and publishes mcp-scan to PyPI whenever a GitHub Release is created.
+# Builds and publishes mcp-grade to PyPI whenever a GitHub Release is created.
 # Uses PyPI "trusted publishing" (OIDC) — NO long-lived API token needed.
 #
 # One-time setup on PyPI (https://pypi.org/manage/account/publishing/):
-#   Owner: lipon101   Repository: mcp-scan   Workflow: publish.yml   Environment: pypi
+#   Owner: lipon101   Repository: mcp-grade   Workflow: publish.yml   Environment: pypi
 
 on:
   release:

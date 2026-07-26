@@ -31,7 +31,7 @@ def render_terminal(report: ScanReport, console: Optional[Console] = None) -> No
     header.append(f"  {report.grade}  ", style=f"bold white on {color}")
     header.append(f"  Score {report.overall:.0f}/100    ", style="bold")
     header.append(report.target, style="dim")
-    console.print(Panel(header, title="mcp-scan report card", border_style=color, expand=False))
+    console.print(Panel(header, title="mcp-grade report card", border_style=color, expand=False))
 
     for cat in report.categories:
         title = f"{CAT_LABEL.get(cat.category, cat.category)}  —  {cat.score:.0f}/100  (weight {int(cat.weight * 100)}%)"
@@ -43,13 +43,13 @@ def render_terminal(report: ScanReport, console: Optional[Console] = None) -> No
             t.add_row(STATUS_ICON[r.status], r.check.split(".")[-1], r.message)
         console.print(t)
 
-    console.print(f"\n[dim]Generated {report.generated_at} · mcp-scan {__version__} · run with --report for a Markdown card[/dim]\n")
+    console.print(f"\n[dim]Generated {report.generated_at} · mcp-grade {__version__} · run with --report for a Markdown card[/dim]\n")
 
 
 def to_markdown(report: ScanReport) -> str:
     icon = {"pass": "✅", "warn": "⚠️", "fail": "❌"}
     lines = [
-        f"# mcp-scan report card — Grade {report.grade} ({report.overall:.0f}/100)",
+        f"# mcp-grade report card — Grade {report.grade} ({report.overall:.0f}/100)",
         "",
         f"**Target:** `{report.target}`  ",
         f"**Generated:** {report.generated_at}",
@@ -69,7 +69,7 @@ def to_markdown(report: ScanReport) -> str:
         lines.append("")
     lines += [
         "---",
-        "_Scanned with [mcp-scan](https://github.com/lipon101/mcp-scan) — Lighthouse for MCP servers._",
+        "_Scanned with [mcp-grade](https://github.com/lipon101/mcp-grade) — Lighthouse for MCP servers._",
     ]
     return "\n".join(lines)
 
@@ -105,5 +105,5 @@ def to_dict(report: ScanReport) -> dict:
 
 def badge_markdown(report: ScanReport) -> str:
     color = BADGE_COLOR.get(report.grade, "lightgrey")
-    url = f"https://img.shields.io/badge/mcp--scan-{report.grade}_{int(report.overall)}-{color}"
-    return f"![mcp-scan grade]({url})"
+    url = f"https://img.shields.io/badge/mcp--grade-{report.grade}_{int(report.overall)}-{color}"
+    return f"![mcp-grade grade]({url})"

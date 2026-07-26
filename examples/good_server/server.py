@@ -1,4 +1,4 @@
-"""A well-structured example MCP server (used as mcp-scan's 'good' fixture)."""
+"""A well-structured example MCP server (used as mcp-grade's 'good' fixture)."""
 import os
 
 from mcp.server.fastmcp import FastMCP

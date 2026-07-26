@@ -1,9 +1,9 @@
 """Leaderboard engine + CLI: scan many MCP servers and rank them A–F.
 
 Usage:
-    mcp-scan-leaderboard                          # scan the curated default list
-    mcp-scan-leaderboard ./serverA ./serverB      # scan specific paths/URLs
-    mcp-scan-leaderboard --from-file repos.txt --html leaderboard.html --json lb.json
+    mcp-grade-leaderboard                          # scan the curated default list
+    mcp-grade-leaderboard ./serverA ./serverB      # scan specific paths/URLs
+    mcp-grade-leaderboard --from-file repos.txt --html leaderboard.html --json lb.json
 """
 from __future__ import annotations
 
@@ -37,7 +37,7 @@ console = Console()
 def _resolve(target: str) -> Tuple[str, str]:
     """Return (local_path, display_label). Clones git URLs to a temp dir."""
     if target.startswith(("http://", "https://", "git@")):
-        dest = tempfile.mkdtemp(prefix="mcp-scan-lb-")
+        dest = tempfile.mkdtemp(prefix="mcp-grade-lb-")
         subprocess.run(["git", "clone", "--depth", "1", target, dest],
                        check=True, capture_output=True, timeout=180)
         return dest, target
@@ -67,7 +67,7 @@ def build_leaderboard(targets: List[str], live: bool = False) -> dict:
 
 
 def to_markdown(lb: dict) -> str:
-    lines = ["# 🏆 mcp-scan leaderboard", "",
+    lines = ["# 🏆 mcp-grade leaderboard", "",
              f"_Generated {lb['generated_at']} · {lb['count']} servers_", "",
              "| # | Grade | Score | Server |", "|---|---|---|---|"]
     for s in lb["servers"]:
@@ -75,14 +75,14 @@ def to_markdown(lb: dict) -> str:
         score = f"{s['score']:.0f}" if isinstance(s.get("score"), (int, float)) else "—"
         err = f" _(error: {s['error']})_" if s.get("error") else ""
         lines.append(f"| {s['rank']} | **{g}** | {score} | `{s['name']}`{err} |")
-    lines += ["", "---", "_Ranked by [mcp-scan](https://github.com/lipon101/mcp-scan)._"]
+    lines += ["", "---", "_Ranked by [mcp-grade](https://github.com/lipon101/mcp-grade)._"]
     return "\n".join(lines)
 
 
 _HTML_TEMPLATE = """<!doctype html>
 <html lang="en"><head><meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>mcp-scan leaderboard</title>
+<title>mcp-grade leaderboard</title>
 <style>
   :root { color-scheme: light; }
   body { font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
@@ -104,13 +104,13 @@ _HTML_TEMPLATE = """<!doctype html>
   a { color: #0969da; }
 </style></head>
 <body><div class="wrap">
-  <h1>🏆 mcp-scan leaderboard</h1>
+  <h1>🏆 mcp-grade leaderboard</h1>
   <div class="meta">Generated __GENERATED__ · __COUNT__ servers · graded A–F on security, liveness, protocol, usability, docs</div>
   <table><thead><tr><th>#</th><th>Grade</th><th>Score</th><th>Server</th></tr></thead>
   <tbody>
 __BODY__
   </tbody></table>
-  <footer>Ranked by <a href="https://github.com/lipon101/mcp-scan">mcp-scan</a> — Lighthouse for MCP servers.</footer>
+  <footer>Ranked by <a href="https://github.com/lipon101/mcp-grade">mcp-grade</a> — Lighthouse for MCP servers.</footer>
 </div></body></html>"""
 
 
@@ -133,7 +133,7 @@ def to_html(lb: dict) -> str:
             .replace("__BODY__", "\n".join(rows)))
 
 
-app = typer.Typer(add_completion=False, help="Generate an mcp-scan leaderboard ranking MCP servers A–F.")
+app = typer.Typer(add_completion=False, help="Generate an mcp-grade leaderboard ranking MCP servers A–F.")
 
 
 @app.command()
@@ -154,7 +154,7 @@ def main(
 
     lb = build_leaderboard(targets, live=live)
 
-    t = Table(title=f"mcp-scan leaderboard ({lb['count']} servers)")
+    t = Table(title=f"mcp-grade leaderboard ({lb['count']} servers)")
     t.add_column("#", justify="right")
     t.add_column("Grade")
     t.add_column("Score", justify="right")

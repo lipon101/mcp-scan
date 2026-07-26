@@ -1,6 +1,6 @@
 """Tests for grading logic."""
-from mcp_scan.grading import build_report, grade_from_score
-from mcp_scan.models import CheckResult, Status
+from mcp_grade.grading import build_report, grade_from_score
+from mcp_grade.models import CheckResult, Status
 
 
 def test_grade_boundaries():

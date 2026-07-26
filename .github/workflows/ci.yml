@@ -22,11 +22,11 @@ jobs:
         run: python -m pytest -q
 
       - name: Dogfood — scan the good example (must pass the gate)
-        run: python -m mcp_scan.cli examples/good_server --fail-under B --report -o good-report.md
+        run: python -m mcp_grade.cli examples/good_server --fail-under B --report -o good-report.md
 
       - name: Dogfood — confirm the bad example FAILS the gate
         run: |
-          if python -m mcp_scan.cli examples/bad_server --fail-under B; then
+          if python -m mcp_grade.cli examples/bad_server --fail-under B; then
             echo "ERROR: bad_server should have failed the gate"; exit 1
           else
             echo "OK: bad_server correctly failed the gate"

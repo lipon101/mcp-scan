@@ -1,4 +1,4 @@
-# mcp-scan leaderboard targets — one repo per line (# comments allowed).
+# mcp-grade leaderboard targets — one repo per line (# comments allowed).
 # These are real, popular standalone MCP servers; add your own / your favorites.
 https://github.com/microsoft/playwright-mcp
 https://github.com/github/github-mcp-server

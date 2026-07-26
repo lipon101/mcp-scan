@@ -31,5 +31,5 @@ htmlcov/
 *.pem
 *.key
 
-# mcp-scan output
-mcp-scan-report.md
+# mcp-grade output
+mcp-grade-report.md

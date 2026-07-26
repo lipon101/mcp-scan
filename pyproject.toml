@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "mcp-scan"
-version = "0.3.0"
+name = "mcp-grade"
+version = "1.0.0"
 description = "Lighthouse/ESLint for MCP servers — grade any MCP server A–F, probe it live, and rank the ecosystem on a leaderboard."
 readme = "README.md"
 requires-python = ">=3.9"
@@ -27,12 +27,12 @@ live = ["mcp>=1.0"]
 web = ["fastapi>=0.110", "uvicorn[standard]>=0.29"]
 
 [project.scripts]
-mcp-scan = "mcp_scan.cli:entrypoint"
-mcp-scan-leaderboard = "mcp_scan.leaderboard:entrypoint"
+mcp-grade = "mcp_grade.cli:entrypoint"
+mcp-grade-leaderboard = "mcp_grade.leaderboard:entrypoint"
 
 [project.urls]
-Homepage = "https://github.com/lipon101/mcp-scan"
-Issues = "https://github.com/lipon101/mcp-scan/issues"
+Homepage = "https://github.com/lipon101/mcp-grade"
+Issues = "https://github.com/lipon101/mcp-grade/issues"
 
 [tool.hatch.build.targets.wheel]
-packages = ["mcp_scan"]
+packages = ["mcp_grade"]

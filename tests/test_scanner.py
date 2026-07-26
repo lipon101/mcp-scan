@@ -1,7 +1,7 @@
 """End-to-end tests against the bundled good/bad fixtures."""
 from pathlib import Path
 
-from mcp_scan.scanner import scan
+from mcp_grade.scanner import scan
 
 EXAMPLES = Path(__file__).resolve().parent.parent / "examples"
 
@@ -32,7 +32,7 @@ def test_good_server_passes_security():
 
 
 def test_json_dict_shape():
-    from mcp_scan.report import to_dict
+    from mcp_grade.report import to_dict
 
     rep = scan(str(EXAMPLES / "good_server"))
     d = to_dict(rep)

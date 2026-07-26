@@ -1,6 +1,6 @@
-# mcp-scan report card — Grade A (96/100)
+# mcp-grade report card — Grade A (96/100)
 
-**Target:** `/home/user/mcp-scan/examples/good_server`  
+**Target:** `/home/user/mcp-grade/examples/good_server`  
 **Generated:** 2026-07-26 04:03 UTC
 
 | Category | Score | Weight |
@@ -44,6 +44,6 @@
 - ✅ **has_contributing** — Contributing guide present
 
 ---
-_Scanned with [mcp-scan](https://github.com/lipon101/mcp-scan) — Lighthouse for MCP servers._
+_Scanned with [mcp-grade](https://github.com/lipon101/mcp-grade) — Lighthouse for MCP servers._
 
-![mcp-scan grade](https://img.shields.io/badge/mcp--scan-A_96-brightgreen)
+![mcp-grade grade](https://img.shields.io/badge/mcp--grade-A_96-brightgreen)

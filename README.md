@@ -1,20 +1,20 @@
 <div align="center">
 
-# 🔍 mcp-scan
+# 🔍 mcp-grade
 
 **Stop debugging dead MCP servers.** One command grades any MCP server **A–F** on security, liveness, protocol, usability, and docs — then can **probe it live** and **rank the whole ecosystem** on a leaderboard.
 
-[![PyPI](https://img.shields.io/pypi/v/mcp-scan)](https://pypi.org/project/mcp-scan/)
+[![PyPI](https://img.shields.io/pypi/v/mcp-grade)](https://pypi.org/project/mcp-grade/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![mcp-scan grade](https://img.shields.io/badge/mcp--scan-A_96-brightgreen)](https://github.com/lipon101/mcp-scan)
+[![mcp-grade grade](https://img.shields.io/badge/mcp--grade-A_96-brightgreen)](https://github.com/lipon101/mcp-grade)
 
-![mcp-scan demo](assets/demo.png)
+![mcp-grade demo](assets/demo.png)
 
 </div>
 
 ---
 
-The MCP ecosystem has **15,000+ servers** — and roughly **1 in 6 has a verified problem**: dead repos, deprecated packages, stale code, leaked secrets. `mcp-scan` is the fast, opinionated **linter + Lighthouse** you run *before* you wire a server into your agent.
+The MCP ecosystem has **15,000+ servers** — and roughly **1 in 6 has a verified problem**: dead repos, deprecated packages, stale code, leaked secrets. `mcp-grade` is the fast, opinionated **linter + Lighthouse** you run *before* you wire a server into your agent.
 
 ## ✨ Why
 
@@ -28,19 +28,19 @@ The MCP ecosystem has **15,000+ servers** — and roughly **1 in 6 has a verifie
 ## 📦 Install
 
 ```bash
-pipx install mcp-scan                 # core CLI
-pipx install "mcp-scan[live]"         # + live protocol probing
-pip install "mcp-scan[web]"           # + the leaderboard web dashboard
+pipx install mcp-grade                 # core CLI
+pipx install "mcp-grade[live]"         # + live protocol probing
+pip install "mcp-grade[web]"           # + the leaderboard web dashboard
 ```
 
 ## 🚀 Quickstart
 
 ```bash
-mcp-scan ./path/to/server                       # grade a local repo
-mcp-scan ./path/to/server --report --badge      # + Markdown card + README badge
-mcp-scan https://github.com/someone/server      # clone & scan a remote repo
-mcp-scan ./path/to/server --json report.json    # machine-readable output
-mcp-scan . --fail-under B                       # CI gate
+mcp-grade ./path/to/server                       # grade a local repo
+mcp-grade ./path/to/server --report --badge      # + Markdown card + README badge
+mcp-grade https://github.com/someone/server      # clone & scan a remote repo
+mcp-grade ./path/to/server --json report.json    # machine-readable output
+mcp-grade . --fail-under B                       # CI gate
 ```
 
 ## 🔬 Live protocol probing
@@ -48,10 +48,10 @@ mcp-scan . --fail-under B                       # CI gate
 Static analysis tells you a server *looks* right; `--live` proves it **runs and answers**. It launches the server over stdio and performs a real MCP handshake (`initialize` → `list_tools`):
 
 ```bash
-pipx install "mcp-scan[live]"
-mcp-scan ./path/to/server --live
+pipx install "mcp-grade[live]"
+mcp-grade ./path/to/server --live
 # optionally control the launch command:
-mcp-scan ./path/to/server --live --command "python server.py"
+mcp-grade ./path/to/server --live --command "python server.py"
 ```
 
 Live results (`live_handshake`, `live_lists_tools`) are folded into the **Protocol** score. It's off by default so the core scan stays fast and offline.
@@ -61,34 +61,34 @@ Live results (`live_handshake`, `live_lists_tools`) are folded into the **Protoc
 Rank a set of servers (or the whole ecosystem) and publish a scoreboard:
 
 ```bash
-mcp-scan-leaderboard ./serverA ./serverB --html leaderboard.html --json lb.json
-mcp-scan-leaderboard --from-file leaderboard/repos.txt --md leaderboard.md
-mcp-scan-leaderboard            # no args → scan the curated list of popular servers
+mcp-grade-leaderboard ./serverA ./serverB --html leaderboard.html --json lb.json
+mcp-grade-leaderboard --from-file leaderboard/repos.txt --md leaderboard.md
+mcp-grade-leaderboard            # no args → scan the curated list of popular servers
 ```
 
 Serve it as a live dashboard (deploy to Fly.io / Render / Railway):
 
 ```bash
-pip install "mcp-scan[web]"
-MCP_SCAN_TARGETS=./examples/good_server,./examples/bad_server \
-    uvicorn mcp_scan.webapp:app --reload
+pip install "mcp-grade[web]"
+MCP_GRADE_TARGETS=./examples/good_server,./examples/bad_server \
+    uvicorn mcp_grade.webapp:app --reload
 # → http://127.0.0.1:8000  (HTML)  and  /api/leaderboard  (JSON)
 ```
 
 ## 🤖 GitHub Action
 
-Run `mcp-scan` automatically on every pull request — and fail the build if a server drops below your bar.
+Run `mcp-grade` automatically on every pull request — and fail the build if a server drops below your bar.
 
 ```yaml
-# .github/workflows/mcp-scan.yml
-name: mcp-scan
+# .github/workflows/mcp-grade.yml
+name: mcp-grade
 on: [push, pull_request]
 jobs:
   scan:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: lipon101/mcp-scan@v1
+      - uses: lipon101/mcp-grade@v1
         id: scan
         with:
           fail-under: B
@@ -113,7 +113,7 @@ Grades: **A** ≥ 90 · **B** ≥ 80 · **C** ≥ 65 · **D** ≥ 50 · **F** < 
 
 ## 🤝 Contributing
 
-Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). Add a check in `mcp_scan/checks/`, add a test, open a PR. Ready to ship? See [LAUNCH.md](LAUNCH.md).
+Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). Add a check in `mcp_grade/checks/`, add a test, open a PR. Ready to ship? See [LAUNCH.md](LAUNCH.md).
 
 ## 📄 License
 

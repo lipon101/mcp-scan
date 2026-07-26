@@ -1,12 +1,12 @@
-"""Deployable FastAPI dashboard for the mcp-scan leaderboard.
+"""Deployable FastAPI dashboard for the mcp-grade leaderboard.
 
 Run locally:
-    pip install "mcp-scan[web]"
-    MCP_SCAN_TARGETS=./examples/good_server,./examples/bad_server \
-        uvicorn mcp_scan.webapp:app --reload
+    pip install "mcp-grade[web]"
+    MCP_GRADE_TARGETS=./examples/good_server,./examples/bad_server \
+        uvicorn mcp_grade.webapp:app --reload
 
 Deploy: any platform that runs a Python web app (Fly.io / Render / Railway).
-Set MCP_SCAN_TARGETS to a comma-separated list of repo paths or git URLs.
+Set MCP_GRADE_TARGETS to a comma-separated list of repo paths or git URLs.
 """
 from __future__ import annotations
 
@@ -17,12 +17,12 @@ from fastapi.responses import HTMLResponse
 
 from .leaderboard import DEFAULT_REPOS, build_leaderboard, to_html
 
-app = FastAPI(title="mcp-scan leaderboard", version="0.3.0")
+app = FastAPI(title="mcp-grade leaderboard", version="0.3.0")
 _cache: dict = {"data": None}
 
 
 def _targets() -> list:
-    env = os.environ.get("MCP_SCAN_TARGETS")
+    env = os.environ.get("MCP_GRADE_TARGETS")
     if env:
         return [t.strip() for t in env.split(",") if t.strip()]
     return DEFAULT_REPOS

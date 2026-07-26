@@ -1,17 +1,17 @@
-# 🚀 LAUNCH.md — ship `mcp-scan` (and the template)
+# 🚀 LAUNCH.md — ship `mcp-grade` (and the template)
 
 A checklist to go from these files to a live, installable, discoverable project.
 
 ## 0. Make it yours (do this first)
 Replace every `lipon101` with your GitHub handle:
-- `mcp-scan`: `README.md`, `pyproject.toml` (`Homepage`/`Issues`), `report.py` footer link.
-- `mcp-server-template`: `README.md`, `LICENSE`, and **`.github/workflows/mcp-scan.yml`** (`uses: lipon101/mcp-scan@v1`).
+- `mcp-grade`: `README.md`, `pyproject.toml` (`Homepage`/`Issues`), `report.py` footer link.
+- `mcp-server-template`: `README.md`, `LICENSE`, and **`.github/workflows/mcp-grade.yml`** (`uses: lipon101/mcp-grade@v1`).
 
 ## 1. Push both repos to GitHub
 ```bash
-# mcp-scan
-cd mcp-scan && git init && git add -A && git commit -m "mcp-scan v0.2.0"
-git branch -M main && git remote add origin https://github.com/<you>/mcp-scan.git && git push -u origin main
+# mcp-grade
+cd mcp-grade && git init && git add -A && git commit -m "mcp-grade v0.2.0"
+git branch -M main && git remote add origin https://github.com/<you>/mcp-grade.git && git push -u origin main
 
 # mcp-server-template
 cd ../mcp-server-template && git init && git add -A && git commit -m "MCP server template"
@@ -25,15 +25,15 @@ derived repo into a *dependent* of your Action.
 
 ## 3. Tag releases (so `@v1` resolves)
 ```bash
-cd mcp-scan
+cd mcp-grade
 git tag -a v0.2.0 -m "v0.2.0" && git push origin v0.2.0
-git tag -a v1 -m "v1 (floating major)" && git push origin v1   # lets `uses: <you>/mcp-scan@v1` work
+git tag -a v1 -m "v1 (floating major)" && git push origin v1   # lets `uses: <you>/mcp-grade@v1` work
 ```
 
-## 4. Publish `mcp-scan` to PyPI
+## 4. Publish `mcp-grade` to PyPI
 **Option A — trusted publishing (recommended, no token):**
 1. On PyPI → *Account settings → Publishing*, add a trusted publisher:
-   Owner `<you>`, Repository `mcp-scan`, Workflow `publish.yml`, Environment `pypi`.
+   Owner `<you>`, Repository `mcp-grade`, Workflow `publish.yml`, Environment `pypi`.
 2. Create a GitHub **Release** (e.g. from the `v0.2.0` tag). `.github/workflows/publish.yml` builds and publishes automatically.
 
 **Option B — manual:**
@@ -42,14 +42,14 @@ pip install --upgrade build twine
 python -m build
 twine upload dist/*
 ```
-Verify: `pipx install mcp-scan && mcp-scan --help`.
+Verify: `pipx install mcp-grade && mcp-grade --help`.
 
 ## 5. Demo asset
 `assets/demo.png` is a rendered terminal mockup you can use immediately. For maximum
 impact, record a real 10-second GIF and replace it:
 ```bash
 pipx install asciinema agg
-asciinema rec demo.cast        # then run: mcp-scan ./examples/good_server --report  ; exit
+asciinema rec demo.cast        # then run: mcp-grade ./examples/good_server --report  ; exit
 agg demo.cast assets/demo.gif  # point the README at assets/demo.gif
 ```
 
@@ -68,5 +68,5 @@ agg demo.cast assets/demo.gif  # point the README at assets/demo.gif
 ## 8. Eligibility (Claude for Open Source)
 Watch **GitHub → Insights → Dependents** (the Action's dependent repos) and PyPI downloads
 (pepy.tech / pypistats.org). The 500-dependent-repos bar is a ~12–24 month target; once real
-CI pipelines depend on `mcp-scan`, apply via the program's *"apply anyway if the ecosystem
+CI pipelines depend on `mcp-grade`, apply via the program's *"apply anyway if the ecosystem
 quietly depends on it"* clause — even before hitting the hard number.
