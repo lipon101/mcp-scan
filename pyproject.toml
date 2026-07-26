@@ -9,7 +9,7 @@ description = "Lighthouse/ESLint for MCP servers — grade any MCP server A–F,
 readme = "README.md"
 requires-python = ">=3.9"
 license = { text = "MIT" }
-authors = [{ name = "James D. Owens" }]
+authors = [{ name = "Md. Torikul Islam Lipon" }]
 keywords = ["mcp", "model-context-protocol", "lint", "lighthouse", "agents", "quality", "security", "github-actions", "leaderboard"]
 classifiers = [
     "Development Status :: 3 - Alpha",

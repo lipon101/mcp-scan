@@ -117,4 +117,4 @@ Contributions are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md). Add a check i
 
 ## 📄 License
 
-[MIT](LICENSE) © 2026 James D. Owens.
+[MIT](LICENSE) © 2026 Md. Torikul Islam Lipon.
